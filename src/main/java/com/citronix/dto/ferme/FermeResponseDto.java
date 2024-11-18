@@ -6,6 +6,6 @@ public record FermeResponseDto(
         Long id,
         String nom,
         String localisation,
-        double superficie,
+        double superfecie,
         LocalDate dateCreation) {
 }
