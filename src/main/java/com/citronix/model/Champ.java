@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="champ")
 @Data
@@ -33,5 +35,6 @@ public class Champ {
     private Ferme ferme;
 
     @OneToMany(mappedBy = "champ")
+    @JsonBackReference
     private List<Arbre> arbres;
 }

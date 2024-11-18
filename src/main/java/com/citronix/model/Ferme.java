@@ -31,6 +31,6 @@ public class Ferme {
     @NotNull
     private LocalDate dateCreation;
 
-    @OneToMany(mappedBy = "ferme")
+    @OneToMany(mappedBy = "ferme", fetch = FetchType.EAGER) 
     private List<Champ> champs;
 }
