@@ -8,9 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.citronix.model.Champ;
-
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "arbre")
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Builder
 public class Arbre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -31,5 +31,7 @@ public class Arbre {
     private int age;
 
     @ManyToOne
+    @JoinColumn(name = "champ_id", nullable = false)
+    @JsonManagedReference
     private Champ champ;
 }
