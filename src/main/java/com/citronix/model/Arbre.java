@@ -11,8 +11,6 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
-// import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "arbre")
 @Data
