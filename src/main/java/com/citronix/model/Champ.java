@@ -14,6 +14,7 @@ import lombok.ToString;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "champ")
@@ -43,7 +44,7 @@ public class Champ {
     private Ferme ferme;
 
     @OneToMany(mappedBy = "champ")
-    @JsonBackReference
+    @JsonIgnore
     @ToString.Exclude
     private List<Arbre> arbres;
 
