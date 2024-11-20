@@ -26,15 +26,15 @@ public class ArbreServiceImp implements IArbreService {
 
     @Override
     public ArbreResponseDto create(ArbreRequestDto arbreRequestDto) {
-        Champ champ = champRepository.findById(arbreRequestDto.champ().getId())
+        Champ champ = champRepository.findById(arbreRequestDto.champId())
                 .orElseThrow(() -> new RuntimeException("Champ non trouvé"));
 
         validateArbreCount(champ);
         validatePlantingPeriod(arbreRequestDto);
-        validateTreeAge(arbreRequestDto.age());
 
         Arbre arbre = arbreMapper.toEntity(arbreRequestDto);
         arbre.setChamp(champ);
+        arbre.updateDerivedFields();
         arbreRepository.save(arbre);
 
         return arbreMapper.toResponseDto(arbre);
@@ -45,20 +45,18 @@ public class ArbreServiceImp implements IArbreService {
         Arbre arbre = arbreRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Arbre non trouvé"));
 
-        Champ champ = champRepository.findById(arbreRequestDto.champ().getId())
+        Champ champ = champRepository.findById(arbreRequestDto.champId())
                 .orElseThrow(() -> new RuntimeException("Champ non trouvé"));
 
         validateArbreCount(champ);
-        validateTreeAge(arbreRequestDto.age());
         validatePlantingPeriod(arbreRequestDto);
 
         arbre.setDatePlantation(arbreRequestDto.datePlantation());
-        arbre.setAge(arbreRequestDto.age());
         arbre.setChamp(champ);
+        arbre.updateDerivedFields();
+        arbreRepository.save(arbre);
 
-        Arbre updatedArbre = arbreRepository.save(arbre);
-
-        return arbreMapper.toResponseDto(updatedArbre);
+        return arbreMapper.toResponseDto(arbre);
     }
 
     @Override
@@ -84,13 +82,6 @@ public class ArbreServiceImp implements IArbreService {
         if (champ.getArbres().size() >= maxTrees) {
             throw new IllegalArgumentException(
                     "Le nombre total d'arbres dans ce champ dépasse la densité maximale autorisée de 100 arbres par hectare.");
-        }
-    }
-
-    private void validateTreeAge(int age) {
-        if (age > 20) {
-            throw new IllegalArgumentException(
-                    "Un arbre ne peut pas être productif au-delà de 20 ans.");
         }
     }
 

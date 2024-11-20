@@ -7,5 +7,6 @@ import com.citronix.dto.champ.ChampSummaryDto;
 public record ArbreResponseDto(
         LocalDate datePlantation,
         int age,
+        double productivite,
         ChampSummaryDto champ) {
 }
