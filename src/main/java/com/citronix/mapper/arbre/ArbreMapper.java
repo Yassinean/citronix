@@ -13,6 +13,8 @@ import com.citronix.model.Champ;
 public interface ArbreMapper {
     Arbre toEntity(ArbreRequestDto arbreRequestDto);
 
+    @Mapping(target = "age", expression = "java(arbre.getAge())")
+    @Mapping(target = "productivite", expression = "java(arbre.getProductivite())")
     ArbreResponseDto toResponseDto(Arbre arbre);
 
     @Mapping(target = "id", source = "id")
