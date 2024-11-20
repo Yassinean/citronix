@@ -91,12 +91,10 @@ public class ChampServiceImp implements IChampService {
         if (superfecie < 0.1) {
             throw new IllegalArgumentException("La superficie d'un champ doit être au minimum de 0.1 hectare.");
         }
-        System.out.println("test lwl mzyann");
         if (superfecie > 0.5 * ferme.getSuperfecie()) {
             throw new IllegalArgumentException(
                     "La superficie d'un champ ne peut pas dépasser 50% de la superficie totale de la ferme.");
         }
-        System.out.println("test tani mzyann");
 
         double totalSuperficie = ferme.getChamps().stream()
                 .mapToDouble(Champ::getSuperfecie)
@@ -106,7 +104,6 @@ public class ChampServiceImp implements IChampService {
             throw new IllegalArgumentException(
                     "La somme des superficies des champs ne peut pas dépasser la superficie totale de la ferme.");
         }
-        System.out.println("test talt mzyann");
     }
 
     private void validateNumberOfChamps(Ferme ferme) {
@@ -114,6 +111,5 @@ public class ChampServiceImp implements IChampService {
             throw new IllegalArgumentException("Une ferme ne peut contenir plus de 10 champs.");
         }
 
-        System.out.println("hada test lkher howa hadak");
     }
 }
