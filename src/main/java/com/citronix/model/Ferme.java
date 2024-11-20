@@ -7,16 +7,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="ferme")
+@Table(name = "ferme")
 public class Ferme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +30,23 @@ public class Ferme {
     private String localisation;
     @NotNull
     @Positive
-    private Double superfecie;
+    private double superfecie;
     @NotNull
     private LocalDate dateCreation;
 
-    @OneToMany(mappedBy = "ferme", fetch = FetchType.EAGER) 
+    @OneToMany(mappedBy = "ferme", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ToString.Exclude // Exclude from toString
     private List<Champ> champs;
+
+    @Override
+    public String toString() {
+        return "Ferme{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", localisation='" + localisation + '\'' +
+                ", superfecie=" + superfecie +
+                ", dateCreation=" + dateCreation +
+                '}';
+    }
 }
