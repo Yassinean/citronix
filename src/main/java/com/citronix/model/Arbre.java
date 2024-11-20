@@ -7,10 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "arbre")
@@ -32,6 +33,6 @@ public class Arbre {
 
     @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
-    @JsonManagedReference
+    @ToString.Exclude
     private Champ champ;
 }
