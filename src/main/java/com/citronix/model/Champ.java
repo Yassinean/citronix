@@ -32,10 +32,8 @@ public class Champ {
     @NotNull
     private String nom;
     @Positive(message = "La superficie doit être un nombre positif.")
-    // @DecimalMin(value = "0.1", message = "La superficie minimale du champ est de
-    // 0,1 hectare")
-    // @DecimalMax(value = "0.5", message = "Un champ ne peut pas dépasser 50% de la
-    // superficie de la ferme")
+    @DecimalMin(value = "0.1", message = "La superficie minimale du champ est de 0,1 hectare")
+    @DecimalMax(value = "0.5", message = "Un champ ne peut pas dépasser 50% de la superficie de la ferme")
     @NotNull
     private double superfecie;
 
