@@ -1,6 +1,5 @@
 package com.citronix.service.Implemenation;
 
-import com.citronix.dto.champ.ChampResponseDto;
 import com.citronix.dto.recolte.RecolteRequestDto;
 import com.citronix.dto.recolte.RecolteResponseDto;
 import com.citronix.mapper.recolte.RecolteMapper;
