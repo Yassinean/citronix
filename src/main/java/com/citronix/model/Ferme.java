@@ -36,7 +36,7 @@ public class Ferme {
 
     @OneToMany(mappedBy = "ferme", fetch = FetchType.EAGER)
     @JsonIgnore
-    @ToString.Exclude // Exclude from toString
+    @ToString.Exclude
     private List<Champ> champs;
 
     @Override

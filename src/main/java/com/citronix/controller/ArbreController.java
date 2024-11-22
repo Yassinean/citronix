@@ -3,6 +3,8 @@ package com.citronix.controller;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +21,6 @@ import com.citronix.dto.arbre.ArbreRequestDto;
 import com.citronix.dto.arbre.ArbreResponseDto;
 import com.citronix.service.Interface.IArbreService;
 
-import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/arbres")
