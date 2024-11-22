@@ -3,6 +3,7 @@ package com.citronix.service.Implemenation;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.citronix.dto.arbre.ArbreRequestDto;
@@ -14,10 +15,8 @@ import com.citronix.repository.ArbreRepository;
 import com.citronix.repository.ChampRepository;
 import com.citronix.service.Interface.IArbreService;
 
-import lombok.AllArgsConstructor;
-
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ArbreServiceImp implements IArbreService {
 
     private final ArbreMapper arbreMapper;

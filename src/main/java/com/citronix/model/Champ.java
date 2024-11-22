@@ -28,6 +28,7 @@ public class Champ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @NotNull
     private String nom;
     @Positive(message = "La superficie doit être un nombre positif.")
@@ -47,6 +48,9 @@ public class Champ {
     @JsonIgnore
     @ToString.Exclude
     private List<Arbre> arbres;
+
+    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recolte> recoltes;
 
     @Override
     public String toString() {

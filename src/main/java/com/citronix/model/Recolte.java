@@ -2,13 +2,13 @@ package com.citronix.model;
 
 import com.citronix.model.Enum.Saison;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "recolte")
@@ -21,11 +21,19 @@ public class Recolte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private double quantiteTotal;
+    @Column(nullable = false)
+    private LocalDate dateDeRecolte;
 
-    @NotNull
-    private LocalDate dateRecolte;
+    private double quantiteTotale;
 
-    private Saison saisonStatus;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Saison saison;
+
+    @ManyToOne
+    @JoinColumn(name = "champ_id", nullable = false)
+    private Champ champ;
+
+    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecolteDetail> detailsRecolte;
 }
