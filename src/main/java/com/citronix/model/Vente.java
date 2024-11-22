@@ -1,6 +1,5 @@
 package com.citronix.model;
 
-import ch.qos.logback.core.net.server.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

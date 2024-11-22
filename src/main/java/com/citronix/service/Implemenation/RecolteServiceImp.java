@@ -1,13 +1,11 @@
 package com.citronix.service.Implemenation;
 
-import com.citronix.dto.champ.ChampResponseDto;
 import com.citronix.dto.recolte.RecolteRequestDto;
 import com.citronix.dto.recolte.RecolteResponseDto;
 import com.citronix.mapper.recolte.RecolteMapper;
 import com.citronix.model.Champ;
 import com.citronix.model.Recolte;
 import com.citronix.repository.ChampRepository;
-import com.citronix.repository.RecolteDetailRepository;
 import com.citronix.repository.RecolteRepository;
 import com.citronix.service.Interface.IRecolteService;
 
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Service;
 public class RecolteServiceImp implements IRecolteService {
 
     private final RecolteRepository recolteRepository;
-    private final RecolteDetailRepository detailRecolteRepository;
     private final ChampRepository champRepository;
     private final RecolteMapper recolteMapper;
 
@@ -37,7 +34,6 @@ public class RecolteServiceImp implements IRecolteService {
             throw new IllegalArgumentException("Ce champ a déjà une récolte pour cette saison !");
         }
 
-        // Map and save the Recolte entity
         Recolte recolte = recolteMapper.toEntity(recolteRequestDto);
         recolte = recolteRepository.save(recolte);
         return recolteMapper.toResponseDto(recolte);
