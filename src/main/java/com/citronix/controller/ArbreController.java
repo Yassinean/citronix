@@ -3,7 +3,7 @@ package com.citronix.controller;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +23,7 @@ import com.citronix.service.Interface.IArbreService;
 
 @RestController
 @RequestMapping("/api/arbres")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ArbreController {
 
     private final IArbreService arbreService;
