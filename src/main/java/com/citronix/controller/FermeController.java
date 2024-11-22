@@ -2,6 +2,7 @@ package com.citronix.controller;
 
 import com.citronix.dto.ferme.FermeRequestDto;
 import com.citronix.dto.ferme.FermeResponseDto;
+import com.citronix.model.Ferme;
 import com.citronix.service.Interface.IFermeService;
 import lombok.AllArgsConstructor;
 
@@ -58,6 +59,17 @@ public class FermeController {
     public ResponseEntity<List<FermeResponseDto>> getAllFermes() {
         List<FermeResponseDto> fermes = fermeService.findAll();
         return new ResponseEntity<>(fermes, HttpStatus.OK);
+    }
+
+     @GetMapping("/search")
+    public ResponseEntity<List<Ferme>> searchFerme(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String localisation,
+            @RequestParam(required = false) Double superficieMin,
+            @RequestParam(required = false) Double superficieMax
+    ) {
+        List<Ferme> responseList = fermeService.searchFermes(name, localisation, superficieMin, superficieMax);
+        return ResponseEntity.ok(responseList);
     }
 
 }
