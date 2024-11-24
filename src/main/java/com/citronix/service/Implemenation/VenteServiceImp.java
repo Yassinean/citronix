@@ -46,31 +46,31 @@ public class VenteServiceImp implements IVenteService {
         return venteMapper.toResponseDto(vente);
     }
 
-    // @Override
-    // public VenteResponseDto update(Long id, VenteRequestDto venteRequestDto) {
-    //     Vente vente = venteRepository.findById(id)
-    //         .orElseThrow(() -> new RuntimeException("Vente non trouvée"));
+    @Override
+    public VenteResponseDto update(Long id, VenteRequestDto venteRequestDto) {
+        Vente vente = venteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Vente non trouvée"));
 
-    //     Recolte recolte = recolteRepository.findById(venteRequestDto.recolteId())
-    //         .orElseThrow(() -> new RuntimeException("Récolte non trouvée"));
+        Recolte recolte = recolteRepository.findById(venteRequestDto.recolteId())
+            .orElseThrow(() -> new RuntimeException("Récolte non trouvée"));
 
-    //     double deltaQuantite = venteRequestDto.quantite() - vente.getQuantite();
-    //     if (deltaQuantite > 0 && recolte.getQuantiteTotale() < deltaQuantite) {
-    //         throw new RuntimeException("Quantité insuffisante dans la récolte");
-    //     }
+        double deltaQuantite = venteRequestDto.quantite() - vente.getQuantite();
+        if (deltaQuantite > 0 && recolte.getQuantiteTotale() < deltaQuantite) {
+            throw new RuntimeException("Quantité insuffisante dans la récolte");
+        }
 
-    //     recolte.setQuantiteTotale(recolte.getQuantiteTotale() - deltaQuantite);
-    //     recolteRepository.save(recolte);
+        recolte.setQuantiteTotale(recolte.getQuantiteTotale() - deltaQuantite);
+        recolteRepository.save(recolte);
 
-    //     vente.setPrixUnitaire(venteRequestDto.prixUnitaire());
-    //     vente.setQuantite(venteRequestDto.quantite());
-    //     vente.setClient(venteRequestDto.client());
-    //     vente.setRevenu(vente.getQuantite() * vente.getPrixUnitaire());
-    //     vente.setRecolte(recolte);
+        vente.setPrixUnitaire(venteRequestDto.prixUnitaire());
+        vente.setQuantite(venteRequestDto.quantite());
+        vente.setClient(venteRequestDto.client());
+        vente.setRevenu(vente.getQuantite() * vente.getPrixUnitaire());
+        vente.setRecolte(recolte);
 
-    //     vente = venteRepository.save(vente);
-    //     return venteMapper.toResponseDto(vente);
-    // }
+        vente = venteRepository.save(vente);
+        return venteMapper.toResponseDto(vente);
+    }
 
     @Override
     public void delete(Long id) {

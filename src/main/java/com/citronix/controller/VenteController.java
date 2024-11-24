@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,15 +35,15 @@ public class VenteController {
         return new ResponseEntity<>(vente, HttpStatus.CREATED);
     }
 
-    // @PutMapping("/update/{id}")
-    // public ResponseEntity<VenteResponseDto> update(@Valid @RequestBody @PathVariable Long id,
-    //         VenteRequestDto venteRequestDto) {
-    //     VenteResponseDto vente = venteService.update(id, venteRequestDto);
-    //     if (vente == null) {
-    //         return new ResponseEntity<>(vente, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity<>(vente, HttpStatus.OK);
-    // }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<VenteResponseDto> update(@Valid @RequestBody @PathVariable Long id,
+            VenteRequestDto venteRequestDto) {
+        VenteResponseDto vente = venteService.update(id, venteRequestDto);
+        if (vente == null) {
+            return new ResponseEntity<>(vente, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(vente, HttpStatus.OK);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<VenteResponseDto> delete(@PathVariable Long id) {
