@@ -172,4 +172,4 @@ mvn spring-boot:run
 - Base API : http://localhost:8080/api
 
 ## Auteur
-Développé avec ❤️ par [https://github.com/Yassinean](Yassine hanach)
+Développé avec ❤️ par [Yassine Hanach](https://github.com/Yassinean)
