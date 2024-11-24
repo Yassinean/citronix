@@ -72,6 +72,8 @@ Citronix est une application conçue pour simplifier et optimiser la gestion des
     │           ├── RecolteDetailDto.java
     │           └── VenteDto.java
     │
+    └── 📂 resources
+        └── data.sql             
 ```
 3. Gestion des Exceptions
 Gestion centralisée avec des réponses adaptées pour chaque type d'erreur.
