@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,12 +24,16 @@ public class Recolte {
 
     @Column(nullable = false)
     private LocalDate dateDeRecolte;
-
+    
+    @Column(nullable = false)
     private double quantiteTotale;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Saison saison;
+
+    @Transient
+    private double revenu;
 
     @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
@@ -36,4 +41,7 @@ public class Recolte {
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecolteDetail> detailsRecolte;
+
+    @OneToMany(mappedBy = "recolte" , cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Vente> ventes = new ArrayList<>();
 }

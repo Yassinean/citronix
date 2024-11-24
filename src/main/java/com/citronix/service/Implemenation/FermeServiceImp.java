@@ -5,6 +5,7 @@ import com.citronix.dto.ferme.FermeResponseDto;
 import com.citronix.mapper.ferme.FermeMapper;
 import com.citronix.model.Ferme;
 import com.citronix.repository.FermeRepository;
+import com.citronix.repository.Custom.IFermeCustom;
 import com.citronix.service.Interface.IFermeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class FermeServiceImp implements IFermeService {
     private final FermeMapper fermeMapper;
     private final FermeRepository fermeRepository;
+    // private final IFermeCustom fermeCustom;
 
     @Override
     public FermeResponseDto create(FermeRequestDto fermeRequestDto) {
@@ -53,4 +55,11 @@ public class FermeServiceImp implements IFermeService {
     public List<FermeResponseDto> findAll() {
         return fermeRepository.findAll().stream().map(fermeMapper::toResponseDto).toList();
     }
+
+    // @Override
+    // public List<FermeResponseDto> searchFermes(String name, String localisation, Double superficieMin, Double superficieMax) {
+    //    return fermeCustom.searchFermes(name, localisation, superficieMin, superficieMax);
+    // }
+
+    
 }

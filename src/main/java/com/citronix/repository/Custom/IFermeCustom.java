@@ -2,8 +2,8 @@ package com.citronix.repository.Custom;
 
 import java.util.List;
 
-import com.citronix.model.Ferme;
+import com.citronix.dto.ferme.FermeResponseDto;
 
 public interface IFermeCustom {
-    List<Ferme> searchFermes(String name, String localisation, Double superficieMin, Double superficieMax);
+//     List<FermeResponseDto> searchFermes(String name, String localisation, Double superficieMin, Double superficieMax);
 }
