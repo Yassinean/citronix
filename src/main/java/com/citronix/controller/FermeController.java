@@ -2,12 +2,15 @@ package com.citronix.controller;
 
 import com.citronix.dto.ferme.FermeRequestDto;
 import com.citronix.dto.ferme.FermeResponseDto;
+import com.citronix.dto.ferme.FermeSearchCriteria;
+import com.citronix.mapper.ferme.FermeMapper;
 import com.citronix.model.Ferme;
 import com.citronix.service.Interface.IFermeService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class FermeController {
     private final IFermeService fermeService;
+    private final FermeMapper fermeMapper;
 
     @PostMapping("/add")
     public ResponseEntity<FermeResponseDto> createFerme(@Validated @RequestBody FermeRequestDto fermeRequestDto) {
@@ -61,15 +65,12 @@ public class FermeController {
         return new ResponseEntity<>(fermes, HttpStatus.OK);
     }
 
-    //  @GetMapping("/search")
-    // public ResponseEntity<List<Ferme>> searchFerme(
-    //         @RequestParam(required = false) String name,
-    //         @RequestParam(required = false) String localisation,
-    //         @RequestParam(required = false) Double superficieMin,
-    //         @RequestParam(required = false) Double superficieMax
-    // ) {
-    //     List<Ferme> responseList = fermeService.searchFermes(name, localisation, superficieMin, superficieMax);
-    //     return ResponseEntity.ok(responseList);
-    // }
+     @PostMapping("/search")
+    public ResponseEntity<List<FermeResponseDto>> searchFermes(@RequestBody FermeSearchCriteria criteria) {
+        List<Ferme> fermes = fermeService.searchFermes(criteria);
+        return ResponseEntity.ok(fermes.stream()
+                .map(fermeMapper::toResponseDto)
+                .collect(Collectors.toList()));
+    }
 
 }
