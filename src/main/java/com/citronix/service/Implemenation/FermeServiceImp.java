@@ -8,7 +8,6 @@ import com.citronix.model.Ferme;
 import com.citronix.repository.FermeRepository;
 import com.citronix.repository.Custom.FermeSpecification;
 import com.citronix.service.Interface.IFermeService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package com.citronix.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -33,7 +32,6 @@ public class Champ {
     private String nom;
     @Positive(message = "La superficie doit être un nombre positif.")
     @DecimalMin(value = "0.1", message = "La superficie minimale du champ est de 0,1 hectare")
-    @DecimalMax(value = "0.5", message = "Un champ ne peut pas dépasser 50% de la superficie de la ferme")
     @NotNull
     private double superfecie;
 

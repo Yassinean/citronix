@@ -26,7 +26,7 @@ public class ChampServiceImp implements IChampService {
 
     @Override
     public ChampResponseDto create(ChampRequestDto champRequestDto) {
-        Ferme ferme = fermeRepository.findById(champRequestDto.ferme().getId())
+        Ferme ferme = fermeRepository.findById(champRequestDto.fermeId())
                 .orElseThrow(() -> new RuntimeException("Ferme non trouvée"));
 
         validateChampSuperficie(champRequestDto.superfecie(), ferme);
@@ -43,7 +43,7 @@ public class ChampServiceImp implements IChampService {
         Champ existingChamp = champRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Champ non trouvé"));
 
-        Ferme ferme = fermeRepository.findById(champRequestDto.ferme().getId())
+        Ferme ferme = fermeRepository.findById(champRequestDto.fermeId())
                 .orElseThrow(() -> new RuntimeException("Ferme non trouvée"));
 
         double newSuperficie = champRequestDto.superfecie();
@@ -87,7 +87,7 @@ public class ChampServiceImp implements IChampService {
     // === Constraint Validation Methods ===
 
     private void validateChampSuperficie(double superfecie, Ferme ferme) {
-
+    
         if (superfecie < 0.1) {
             throw new IllegalArgumentException("La superficie d'un champ doit être au minimum de 0.1 hectare.");
         }

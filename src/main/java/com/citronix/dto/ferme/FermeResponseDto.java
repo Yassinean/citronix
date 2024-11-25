@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.citronix.dto.champ.ChampResponseDto;
 
+import lombok.Builder;
+
+@Builder
 public record FermeResponseDto(
         Long id,
         String nom,
