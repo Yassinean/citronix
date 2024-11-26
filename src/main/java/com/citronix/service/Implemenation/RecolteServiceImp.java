@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -39,22 +38,26 @@ public class RecolteServiceImp implements IRecolteService {
 
         Champ champ = getChampWithArbres(recolteRequestDto.champId());
 
-    
         Recolte recolte = recolteMapper.toEntity(recolteRequestDto);
         recolte.setDateDeRecolte(recolteRequestDto.dateDeRecolte());
         recolte.setChamp(champ);
 
         recolte = recolteRepository.save(recolte);
+
         double quantiteTotal = champ.getArbres().stream()
                 .mapToDouble(arbre -> arbre.getProductivite())
                 .sum();
         recolte.setQuantiteTotale(quantiteTotal);
+
+        double revenu = calculateRevenu(recolte);
+        recolte.setRevenu(revenu);
+
         return recolteMapper.toResponseDto(recolte);
     }
 
     @Override
     public RecolteResponseDto update(Long id, RecolteRequestDto recolteRequestDto) {
-    
+
         Recolte existingRecolte = recolteRepository.findById(id)
                 .orElseThrow(() -> new RecolteNotFoundException("Récolte non trouvée"));
 
@@ -70,6 +73,9 @@ public class RecolteServiceImp implements IRecolteService {
                 .sum();
         existingRecolte.setQuantiteTotale(quantiteTotal);
 
+        double revenu = calculateRevenu(existingRecolte);
+        existingRecolte.setRevenu(revenu);
+
         Recolte updatedRecolte = recolteRepository.save(existingRecolte);
         return recolteMapper.toResponseDto(updatedRecolte);
     }
@@ -78,17 +84,26 @@ public class RecolteServiceImp implements IRecolteService {
     public void delete(Long id) {
         recolteRepository.deleteById(id);
     }
-
+    
     @Override
     public Optional<RecolteResponseDto> findById(Long id) {
         return recolteRepository.findById(id)
-                .map(recolteMapper::toResponseDto);
+                .map(recolte -> {
+                    // Recalculate revenue on retrieval
+                    double revenu = calculateRevenu(recolte);
+                    recolte.setRevenu(revenu);
+                    return recolteMapper.toResponseDto(recolte);
+                });
     }
 
     @Override
     public List<RecolteResponseDto> findAll() {
         return recolteRepository.findAll().stream()
-                .map(recolteMapper::toResponseDto)
+                .map(recolte -> {
+                    double revenu = calculateRevenu(recolte);
+                    recolte.setRevenu(revenu);
+                    return recolteMapper.toResponseDto(recolte);
+                })
                 .toList();
     }
 
@@ -102,4 +117,12 @@ public class RecolteServiceImp implements IRecolteService {
 
         return champ;
     }
+
+    private double calculateRevenu(Recolte recolte) {
+        return recolte.getVentes().stream()
+                .mapToDouble(vente -> vente.getQuantite() * vente.getPrixUnitaire())
+                .sum();
+    }
+
+
 }

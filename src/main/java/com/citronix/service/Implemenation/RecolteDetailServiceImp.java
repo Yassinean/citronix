@@ -2,6 +2,8 @@ package com.citronix.service.Implemenation;
 
 import com.citronix.dto.recolte.RecolteDetailRequestDto;
 import com.citronix.dto.recolte.RecolteDetailResponseDto;
+import com.citronix.exceptions.ArbreNotFoundException;
+import com.citronix.exceptions.RecolteNotFoundException;
 import com.citronix.mapper.recolte.RecolteDetailMapper;
 import com.citronix.model.Arbre;
 import com.citronix.model.Recolte;
@@ -32,10 +34,10 @@ public class RecolteDetailServiceImp implements IRecolteDetailService {
     @Override
     public RecolteDetailResponseDto create(RecolteDetailRequestDto recolteDetailRequestDto) {
         Recolte recolte = recolteRepository.findById(recolteDetailRequestDto.recolteId())
-            .orElseThrow(() -> new RuntimeException("Recolte non trouvée"));
+            .orElseThrow(() -> new RecolteNotFoundException("Recolte non trouvée"));
 
         Arbre arbre = arbreRepository.findById(recolteDetailRequestDto.arbreId())
-            .orElseThrow(() -> new RuntimeException("Arbre non trouvé"));
+            .orElseThrow(() -> new ArbreNotFoundException("Arbre non trouvé"));
 
         if (recolteDetailRepository.existsByArbreAndSaison(arbre.getId(), recolte.getSaison())) {
             throw new RuntimeException("Cet arbre est déjà récolté pour cette saison");
