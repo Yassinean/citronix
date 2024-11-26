@@ -39,7 +39,6 @@ Citronix est une application conçue pour simplifier et optimiser la gestion des
     │       │   ├── RecolteService.java
     │       │   ├── RecolteDetailService.java
     │       │   └── VenteService.java
-    │       │
     │       ├── 📂 repository           # Repositories JPA
     │       │   ├── FermeRepository.java
     │       │   ├── ChampRepository.java
