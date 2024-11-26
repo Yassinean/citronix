@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.citronix.dto.arbre.ArbreRequestDto;
 import com.citronix.dto.arbre.ArbreResponseDto;
+import com.citronix.exceptions.ArbreNotFoundException;
+import com.citronix.exceptions.ChampNotFoundException;
 import com.citronix.mapper.arbre.ArbreMapper;
 import com.citronix.model.Arbre;
 import com.citronix.model.Champ;
@@ -42,10 +44,10 @@ public class ArbreServiceImp implements IArbreService {
     @Override
     public ArbreResponseDto update(ArbreRequestDto arbreRequestDto, Long id) {
         Arbre arbre = arbreRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Arbre non trouvé"));
+                .orElseThrow(() -> new ArbreNotFoundException("Arbre non trouvé"));
 
         Champ champ = champRepository.findById(arbreRequestDto.champId())
-                .orElseThrow(() -> new RuntimeException("Champ non trouvé"));
+                .orElseThrow(() -> new ChampNotFoundException("Champ non trouvé"));
 
         validateArbreCount(champ);
         validatePlantingPeriod(arbreRequestDto);

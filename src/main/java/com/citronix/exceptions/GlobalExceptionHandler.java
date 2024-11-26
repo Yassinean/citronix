@@ -18,6 +18,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleChampNotFoundException(ChampNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+   
+    @ExceptionHandler(ArbreNotFoundException.class)
+    public ResponseEntity<String> handleArbreNotFoundException(ArbreNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception ex, WebRequest request) {
