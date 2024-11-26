@@ -2,6 +2,8 @@ package com.citronix.service.Implemenation;
 
 import com.citronix.dto.champ.ChampRequestDto;
 import com.citronix.dto.champ.ChampResponseDto;
+import com.citronix.exceptions.ChampNotFoundException;
+import com.citronix.exceptions.FermeNotFoundException;
 import com.citronix.mapper.champ.ChampMapper;
 import com.citronix.model.Champ;
 import com.citronix.model.Ferme;
@@ -27,7 +29,7 @@ public class ChampServiceImp implements IChampService {
     @Override
     public ChampResponseDto create(ChampRequestDto champRequestDto) {
         Ferme ferme = fermeRepository.findById(champRequestDto.fermeId())
-                .orElseThrow(() -> new RuntimeException("Ferme non trouvée"));
+                .orElseThrow(() -> new FermeNotFoundException("Ferme non trouvée"));
 
         validateChampSuperficie(champRequestDto.superfecie(), ferme);
         validateNumberOfChamps(ferme);
@@ -41,15 +43,15 @@ public class ChampServiceImp implements IChampService {
     @Override
     public ChampResponseDto update(Long id, ChampRequestDto champRequestDto) {
         Champ existingChamp = champRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Champ non trouvé"));
+                .orElseThrow(() -> new ChampNotFoundException("Champ non trouvé"));
 
         Ferme ferme = fermeRepository.findById(champRequestDto.fermeId())
-                .orElseThrow(() -> new RuntimeException("Ferme non trouvée"));
+                .orElseThrow(() -> new FermeNotFoundException("Ferme non trouvée"));
 
         double newSuperficie = champRequestDto.superfecie();
 
         double currentTotal = ferme.getChamps().stream()
-                .filter(champ -> !champ.getId().equals(existingChamp.getId())) // Exclude the current Champ
+                .filter(champ -> !champ.getId().equals(existingChamp.getId()))
                 .mapToDouble(Champ::getSuperfecie)
                 .sum();
 

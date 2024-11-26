@@ -1,9 +1,6 @@
 package com.citronix.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,11 +25,7 @@ public class Champ {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull
     private String nom;
-    @Positive(message = "La superficie doit être un nombre positif.")
-    @DecimalMin(value = "0.1", message = "La superficie minimale du champ est de 0,1 hectare")
-    @NotNull
     private double superfecie;
 
     @ManyToOne
@@ -48,12 +41,4 @@ public class Champ {
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recolte> recoltes;
 
-    @Override
-    public String toString() {
-        return "Champ{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", superfecie=" + superfecie +
-                '}';
-    }
 }
