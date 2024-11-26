@@ -23,6 +23,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleArbreNotFoundException(ArbreNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+    
+    @ExceptionHandler(RecolteNotFoundException.class)
+    public ResponseEntity<String> handleRecolteNotFoundException(RecolteNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception ex, WebRequest request) {
