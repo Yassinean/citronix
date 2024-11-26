@@ -39,15 +39,6 @@ Citronix est une application conçue pour simplifier et optimiser la gestion des
     │       │   ├── RecolteService.java
     │       │   ├── RecolteDetailService.java
     │       │   └── VenteService.java
-    │       │
-    │       ├── 📂 dao                  # DAO pour requêtes spécifiques ou avancées
-    │       │   ├── FermeDao.java
-    │       │   ├── ChampDao.java
-    │       │   ├── ArbreDao.java
-    │       │   ├── RecolteDao.java
-    │       │   ├── RecolteDetailDao.java
-    │       │   └── VenteDao.java
-    │       │
     │       ├── 📂 repository           # Repositories JPA
     │       │   ├── FermeRepository.java
     │       │   ├── ChampRepository.java
