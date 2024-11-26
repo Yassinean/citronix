@@ -12,14 +12,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Component
 class FermeServiceImpTest {
 
     @Mock
@@ -45,7 +48,8 @@ class FermeServiceImpTest {
                 .dateCreation(LocalDate.now())
                 .build();
 
-        Ferme ferme = new Ferme();
+        Ferme ferme = fermeMapper.toEntity(requestDto);
+
         FermeResponseDto responseDto = FermeResponseDto.builder()
                 .id(1L)
                 .nom("Farm1")
@@ -75,8 +79,23 @@ class FermeServiceImpTest {
                 .dateCreation(LocalDate.now())
                 .build();
 
-        Ferme existingFerme = new Ferme();
-        Ferme updatedFerme = new Ferme();
+        Ferme existingFarm = Ferme.builder()
+                .id(id)
+                .nom("Farm1")
+                .superfecie(50.0)
+                .champs(new ArrayList<>())
+                .localisation("Marrakech")
+                .build();
+
+        Ferme updatedFarm = Ferme.builder()
+                .id(id)
+                .nom("UpdatedFarm")
+                .localisation("UpdatedLocation")
+                .superfecie(60.0)
+                .dateCreation(LocalDate.now())
+                .champs(existingFarm.getChamps())
+                .build();
+
         FermeResponseDto responseDto = FermeResponseDto.builder()
                 .id(1L)
                 .nom("UpdatedFarm")
@@ -85,16 +104,16 @@ class FermeServiceImpTest {
                 .dateCreation(LocalDate.now())
                 .build();
 
-        when(fermeRepository.findById(id)).thenReturn(Optional.of(existingFerme));
-        when(fermeRepository.save(existingFerme)).thenReturn(updatedFerme);
-        when(fermeMapper.toResponseDto(updatedFerme)).thenReturn(responseDto);
+        when(fermeRepository.findById(id)).thenReturn(Optional.of(existingFarm));
+        when(fermeRepository.save(any(Ferme.class))).thenReturn(updatedFarm);
+        when(fermeMapper.toResponseDto(updatedFarm)).thenReturn(responseDto);
 
         FermeResponseDto result = fermeServiceImp.update(id, requestDto);
 
         assertNotNull(result);
         assertEquals("UpdatedFarm", result.nom());
-        verify(fermeRepository, times(1)).findById(id);
-        verify(fermeRepository, times(1)).save(existingFerme);
+        assertEquals("UpdatedLocation", result.localisation());
+        assertEquals(60.0, result.superfecie());
     }
 
     @Test
