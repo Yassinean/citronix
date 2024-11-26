@@ -40,7 +40,7 @@ public class Champ {
     @JoinColumn(name = "ferme_id", nullable = false)
     private Ferme ferme;
 
-    @OneToMany(mappedBy = "champ")
+    @OneToMany(mappedBy = "champ" , cascade = CascadeType.ALL , orphanRemoval = true)
     @JsonIgnore
     @ToString.Exclude
     private List<Arbre> arbres;

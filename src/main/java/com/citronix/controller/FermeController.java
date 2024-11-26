@@ -29,40 +29,34 @@ public class FermeController {
     @PostMapping("/add")
     public ResponseEntity<FermeResponseDto> createFerme(@Validated @RequestBody FermeRequestDto fermeRequestDto) {
         FermeResponseDto fermeResponseDto = fermeService.create(fermeRequestDto);
-        return new ResponseEntity<>(fermeResponseDto, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(fermeResponseDto);
     }
 
-   
     @PutMapping("/update/{id}")
     public ResponseEntity<FermeResponseDto> updateFerme(
             @PathVariable Long id,
             @Validated @RequestBody FermeRequestDto fermeRequestDto) {
-
         FermeResponseDto updatedFerme = fermeService.update(id, fermeRequestDto);
-        if (updatedFerme == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedFerme, HttpStatus.OK);
+        return ResponseEntity.ok(updatedFerme);
     }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteFerme(@PathVariable Long id) {
         fermeService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FermeResponseDto> getFermeById(@PathVariable Long id) {
-        Optional<FermeResponseDto> fermeResponseDto = fermeService.findById(id);
-        return fermeResponseDto.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return fermeService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<FermeResponseDto>> getAllFermes() {
         List<FermeResponseDto> fermes = fermeService.findAll();
-        return new ResponseEntity<>(fermes, HttpStatus.OK);
+        return ResponseEntity.ok(fermes);
     }
 
      @PostMapping("/search")

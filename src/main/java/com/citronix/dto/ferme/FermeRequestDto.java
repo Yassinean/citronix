@@ -8,8 +8,8 @@ import lombok.Builder;
 
 @Builder
 public record FermeRequestDto(
-        @NotNull(message = "le nom du champ est obligatoire") String nom,
-        @NotNull(message = "la localisation du champs est obligatoire") String localisation,
-        @Positive @NotNull(message = "La surface doit etre superieur a zero") double superfecie,
-        @NotNull(message = "La date est obligatoire") LocalDate dateCreation) {
+        @NotNull(message = "Le nom est obligatoire") String nom,
+        @NotNull(message = "La localisation est obligatoire") String localisation,
+        @Positive(message = "La superficie doit être supérieure à zéro") @NotNull double superfecie,
+        @NotNull(message = "La date de création est obligatoire") LocalDate dateCreation) {
 }
