@@ -164,5 +164,10 @@ mvn spring-boot:run
 - Swagger UI : http://localhost:8080/swagger-ui.html
 - Base API : http://localhost:8080/api
 
+#### Lien du presentation
+[Presentation](https://prezi.com/p/create-prezi/#selected-template=food_ai_assisted)
+
+#### Lien du planification JIRA
+[Planification](https://yassinehanach02.atlassian.net/jira/software/projects/CIT/boards/166)
 ## Auteur
 Développé avec ❤️ par [Yassine Hanach](https://github.com/Yassinean)
