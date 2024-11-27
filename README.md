@@ -11,6 +11,10 @@ Citronix est une application conçue pour simplifier et optimiser la gestion des
 ### 5. Détails des Récoltes
 ### 6. Gestion des Ventes
 
+
+## Conception
+![ClassDiagram1](https://github.com/user-attachments/assets/8586136e-be30-4258-955c-b142c372f434)
+
 ## Architecture Technique
 1. Technologies Utilisées
 - Spring Boot : Framework principal pour créer l'API REST.
@@ -163,9 +167,6 @@ mvn spring-boot:run
 #### Accéder à l'API :
 - Swagger UI : http://localhost:8080/swagger-ui.html
 - Base API : http://localhost:8080/api
-
-#### Lien du presentation
-[Presentation](https://prezi.com/p/create-prezi/#selected-template=food_ai_assisted)
 
 #### Lien du planification JIRA
 [Planification](https://yassinehanach02.atlassian.net/jira/software/projects/CIT/boards/166)
